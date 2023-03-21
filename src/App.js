@@ -1,23 +1,75 @@
-import logo from './logo.svg';
-import './App.css';
+// import React, { useState } from 'react';
+
+// import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
+// import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
+// import './App.css';
+
+// const App = () => {
+//   const [courseGoals, setCourseGoals] = useState([
+//     { text: 'Do all exercises!', id: 'g1' },
+//     { text: 'Finish the course!', id: 'g2' }
+//   ]);
+
+//   const addGoalHandler = enteredText => {
+//     setCourseGoals(prevGoals => {
+//       const updatedGoals = [...prevGoals];
+//       updatedGoals.unshift({ text: enteredText, id: 'goal1' });
+//       return updatedGoals;
+//     });
+//   };
+
+//   const deleteItemHandler = goalId => {
+//     setCourseGoals(prevGoals => {
+//       const updatedGoals = prevGoals.filter(goal => goal.id !== goalId);
+//       return updatedGoals;
+//     });
+//   };
+
+//   let content = (
+//     <p style={{ textAlign: 'center' }}>No goals found. Maybe add one?</p>
+//   );
+
+//   if (courseGoals.length > 0) {
+//     content = (
+//       <CourseGoalList items={courseGoals} onDeleteItem={deleteItemHandler} />
+//     );
+//   }
+
+//   return (
+
+//       <section id="goal-form">
+//         <CourseInput onAddGoal={addGoalHandler} />
+//       </section>
+//       <section id="goals">
+//         {content}
+//       </section>
+
+//   );
+// };
+
+// export default App;
+
+import React, { useState } from "react";
+
+import AddUser from "./components/User/AddUser";
+import UsersList from "./components/User/UsersList";
 
 function App() {
+  const [usersList, setUsersList] = useState([]);
+
+  const addUserHandler = (uName, uAge) => {
+    setUsersList((prevUsersList) => {
+      return [
+        ...prevUsersList, 
+        { name: uName, age: uAge, id: Math.random().toString() }, 
+      ];
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AddUser onAddUser={addUserHandler} />
+      <UsersList users={[usersList]} />
     </div>
   );
 }
